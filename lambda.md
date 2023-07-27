@@ -107,3 +107,4 @@ The **role** is basically said:
 >
 The **resource-based policy**  saids:
 > **Me as a lambda i can be invoke by these services**(generally a Principal)
+> 
