@@ -64,7 +64,7 @@ return {
 
 > But if you want to use a third party librairies such as **requests**, you need **to create a deployment package**.
 
-To create a ddeployment package without any dependency:
+To create a deployment package without any dependency:
 1. Open a ``terminal``.
 2. Create a folder name ``My_function`` (for example).
 3. ``cd`` to that folder.
@@ -76,9 +76,25 @@ To create a ddeployment package without any dependency:
 
 To create a ddeployment package with dependencies:
 1. Repeat previous 1. to 6.steps.
-2. Install the requests packages in the same directoty
-3. ````zip  -r deployment-package.zip lambda_function.py````
+2. Install the requests packages in the same directry by creating a virtual environment.
+3. ````zip  -r deployment-package.zip .````
 4. Upload the zip file from AWS console and ond't **forget to rename the lambda handler**.
 
 We have our function bundle with the request dependencies.  It's very likely that **the majority of Lambda we will create in the future, will also require the request librairy**. We could bundle the librairy with any function we will create as we are doing here, **but that codes duplication accross a lot of bunders**
 > What we should do **it to save the request librairy in a separate storagesomewhere and the referenceit from the lambda that requires the library**,  this is a perfect use cases for the **lambda layer**
+>
+> A lambda layer **is a zip archive** that contain additionnal code or data that lambda can use.
+>
+> To create a layer:
+1. Open a ``terminal``.
+2. Create a folder name python(**it's a mandatoty**) and create a virtual environment .
+3. Install the request libraries into the **python folder**
+4. ````zip  -r request-layer.zip python````
+5. Upload the layer from AWS console.
+6. After uploading layer throught ``AWS Console`, don't forget to attch that layer to the function.`
+
+**Note/**
+
+When the lambda function is initialize, 
+1. **The lambda service will unzip the layer and will place it in the** ````bash /opt/python````
+2. Lambda is running on the AMI Linux system
