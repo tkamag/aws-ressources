@@ -96,5 +96,5 @@ We have our function bundle with the request dependencies.  It's very likely tha
 **Note/**
 
 When the lambda function is initialize, 
-1. **The lambda service will unzip the layer and will place it in the** ````bash /opt/python````
+1. **The lambda service will unzip the layer and will place it in the** ```` /opt/python````
 2. Lambda is running on the AMI Linux system
