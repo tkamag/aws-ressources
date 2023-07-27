@@ -45,9 +45,9 @@ return {
 }
 ``````
 * We can return an **null**
-``````python
+````python
 return {
     'statuscode': 200,
     'body' : null
 }
-``````
+````
