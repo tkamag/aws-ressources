@@ -98,3 +98,12 @@ We have our function bundle with the request dependencies.  It's very likely tha
 When the lambda function is initialize, 
 1. **The lambda service will unzip the layer and will place it in the** ```` /opt/python````
 2. Lambda is running on the AMI Linux system
+
+# C. Advanced Lambda concepts
+**Triggers** are ressources that allows you to invoke lambda function reaction to an external event.
+
+The **role** is basically said:
+> **Me as lambda i can do this things**
+>
+The **resource-based policy**  saids:
+> **Me as a lambda i can be invoke by these services**(generally a Principal)
