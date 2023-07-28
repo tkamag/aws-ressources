@@ -140,3 +140,5 @@ When you invoke your lmabda for the first time, **the service need to prepare th
     ## C.4 Dead Letter Queue
     A **Dead Leter queue** is queue to which messages in our ceses events are sent if they cannot be successfull process by our lambda.
     To create a  dead letter queue, we'll use ``AWS SQS``  and add it to our lambda function(go to configuration + Asynchronousand invocation+ Attach+ Dead Letter Queue)
+
+    ## C.5 Concurrency
