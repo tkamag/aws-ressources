@@ -114,6 +114,7 @@ When you invoke your lmabda for the first time, **the service need to prepare th
 1. The  services need to download the function code that is stored in an internel S3 bucket .
 2. Then it has to create an environment with the specified ùmemory, the runtime ans all of other configurations.
 3. Only after all theses resources are allocated to an instance of your function, **it can process the event**.
+   
    > This initialization period is frequently referred to as a **cold start**.
 
    > If another event comes in right after the first one was processed, **the initialization period is skipped; because we have a lambda that's ready to be invoked**. This is called a **warm start**
@@ -121,3 +122,21 @@ When you invoke your lmabda for the first time, **the service need to prepare th
    > If our lambda doesn't receive any events from some periods of time,  **the lambda service decodes to kill the lambda instance**  
 
    > The time between the **last invokation** and **the service deciding to kill the instance** is unknown and internal to ``AWS``.
+
+   > Because of this concept of **cold start** and **warm start**, it **recommended to initialize some of your ressources outside the function handler**  when the function is invoked for the first time. 
+   
+   > **When a function is invoke at the first time i.e at the cold start, all the code outside the handler is run**. At **warm start** the code outside the handler are already been imported.
+
+   > **Remember:** You need to initialize database connecxion outside the handler.
+
+   ## C.3 Asynchronousand/Synchronous invocation
+   The are two ways lambda function can be invoke:
+   * **Synchronous invocation**: Where the client send request to a lambda; the lambda does it job and returns a response to the client.
+
+   * **Asynchronous invocation**: Where client doesn't sent a request to the lamnda, it places it on a queue that is internal to the lambda. After the client successfully places the event on the queue, it considers its job done, **the client is not waiting any response from the lambda**. When the lambda is not busy, it takes the request even from the sueue and processes it.
+
+    When we click on a **test buttom** in the console, ware invoking **the functions synchronous ly**, we need to xait for lambda to return a response.
+
+    ## C.4 Dead Letter Queue
+    A **Dead Leter queue** is queue to which messages in our ceses events are sent if they cannot be successfull process by our lambda.
+    To create a  dead letter queue, we'll use ``AWS SQS``  and add it to our lambda function(go to configuration + Asynchronousand invocation+ Attach+ Dead Letter Queue)
