@@ -100,6 +100,7 @@ When the lambda function is initialize,
 2. Lambda is running on the AMI Linux system
 
 # C. Advanced Lambda concepts
+## C.1 Triggers
 **Triggers** are ressources that allows you to invoke lambda function reaction to an external event.
 
 The **role** is basically said:
@@ -107,4 +108,16 @@ The **role** is basically said:
 >
 The **resource-based policy**  saids:
 > **Me as a lambda i can be invoke by these services**(generally a Principal)
-> 
+
+## C.2 Cold & Warm start
+When you invoke your lmabda for the first time, **the service need to prepare the execution environment** for your function.
+1. The  services need to download the function code that is stored in an internel S3 bucket .
+2. Then it has to create an environment with the specified ùmemory, the runtime ans all of other configurations.
+3. Only after all theses resources are allocated to an instance of your function, **it can process the event**.
+   > This initialization period is frequently referred to as a **cold start**.
+
+   > If another event comes in right after the first one was processed, **the initialization period is skipped; because we have a lambda that's ready to be invoked**. This is called a **warm start**
+
+   > If our lambda doesn't receive any events from some periods of time,  **the lambda service decodes to kill the lambda instance**  
+
+   > The time between the **last invokation** and **the service deciding to kill the instance** is unknown and internal to ``AWS``.
