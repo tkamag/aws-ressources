@@ -209,18 +209,27 @@ With Lambda functions, there are two sides that define the necessary scope of pe
 > **Resource policies** grant permissions to invoke the function, whereas the **execution role** strictly controls what the function can to do within the other AWS service.
 >
 > **Remember to use the principle of least privilege when creating IAM policies and roles**. Always start with the most restrictive set of permissions and only grant further permissions as required for the function to run. Using the principle of least privilege ensures security in depth and eliminates the need to remember to 'go back and fix it' once the function is in production.
-## D.1 Execution role definitions
+### D.1 Execution role definitions
 > 
 ![iam](https://github.com/tkamag/aws-ressources/assets/14333637/5546e5c1-e79c-4bcc-b353-07853cee487b)
 
 ![trust](https://github.com/tkamag/aws-ressources/assets/14333637/198a0792-807a-4a06-96bc-26fa5e40bdd7)
 
-## D.2 Resource-based policy
-A **resource policy** (also called a function policy) **tells the Lambda service which principals have permission to invoke the Lambda function**. 
+### D.2 Resource-based policy
+A **resource policy** (also called a function policy or IAM ressource policy) **tells the Lambda service which principals have permission to invoke the Lambda function**. 
 > An **AWS principal may be a user, role, another AWS service, or another AWS account**.
 >
 The resource-based policy is an easier option and you can see and modify it via the Lambda console. A consideration with cross-account permissions is that a **resource policy does have a size limit**. If you have many different accounts that need to invoke the function and you have to add permissions for each account via the resource policy, you might reach the policy size limit. In that case, **you would need to use IAM roles instead of resource policies**. 
-## D.3 Policy comparison
+
+The following is a basic resource policy example.
+
+* The policy has an Effect of ``Allow``. The Effect can be Deny or Allow.
+* The Principal is the Amazon S3 ``s3.amazonaws.com`` service. This **policy is allowing the Amazon S3 service to perform an Action**.
+* The Action that **S3 is allowed to perform is the ability to invoke a Lambda function** ``lambda:InvokeFunction`` called ``my-s3-function``.* 
+
+![call](https://github.com/tkamag/aws-ressources/assets/14333637/c6d9deda-edbd-4b10-bce9-f5d5a4d0aae7)
+
+### D.3 Policy comparison
 | **Ressiurce-based policy**  | **Execution role**  |
 |---|---|
 | Lambda resource-based (function) policy  | IAM execution role  |
@@ -228,3 +237,7 @@ The resource-based policy is an easier option and you can see and modify it via 
 | * Created when you add a trigger to a Lambda function | * IAM policy includes actions you can take with the resource  |
 | * Allows the event source to take the lambda:InvokeFunction action  |  * Trust policy that allows Lambda to AssumeRole |
 |   | * Creator must have permission for iam:PassRole  |
+
+## E. Ease of management
+
+For ease of policy management, you can use authoring tools such as the ``AWS Serverless Application Model (AWS SAM)`` to help manage your policies. For a Lambda function, ``AWS SAM`` **scopes the permissions of your Lambda functions to the resources used by your application**. You can add IAM policies as part of the ``AWS SAM`` template. The policies property can be the name of AWS managed policies, inline IAM policy documents, or AWS SAM policy templates.
