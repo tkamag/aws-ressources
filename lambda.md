@@ -241,3 +241,26 @@ The following is a basic resource policy example.
 ## E. Ease of management
 
 For ease of policy management, you can use authoring tools such as the ``AWS Serverless Application Model (AWS SAM)`` to help manage your policies. For a Lambda function, ``AWS SAM`` **scopes the permissions of your Lambda functions to the resources used by your application**. You can add IAM policies as part of the ``AWS SAM`` template. The policies property can be the name of AWS managed policies, inline IAM policy documents, or AWS SAM policy templates.
+
+## F. Accessing resources in a VPC
+
+Enabling your Lambda function to access resources inside your virtual private cloud (VPC) requires additional VPC-specific configuration information, such as VPC subnet IDs and security group IDs. This functionality allows Lambda to access resources in the VPC. It does not change how the function is secured. You also need an execution role with permissions to create, describe, and delete elastic network interfaces. Lambda provides a permissions policy for this purpose named ``AWSLambdaVPCAccessExecutionRole``.
+
+### F.1 Lambda and AWS PrivateLink
+
+To **establish a private connection between your VPC and Lambda, create an interface VPC endpoint**. 
+> **Interface endpoints** are powered by ``AWS PrivateLink,`` which enables you to privately access Lambda APIs without an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection. 
+>
+Instances in your VPC don't need public IP addresses to communicate with Lambda APIs. Traffic between your VPC and Lambda does not leave the AWS network. 
+
+**Remember**
+
+A **resource policy determines who is allowed in (who can initiate your function, such as Amazon S3)**, and it **can be used to grant access across accounts**. 
+* Can give Amazon S3 permission to initiate a Lambda function
+* Can grant access to the Lambda function across AWS accounts
+* Determines who has access to invoke the function
+
+An **execution role must be created or selected when creating your function**, and **it controls what Lambda is allowed to do (such as writing to a DynamoDB table)**. It includes a **trust policy** with **AssumeRole**. 
+* Must be chosen or created when you create a Lambda function
+* Can give Lambda permission to write data to a DynamoDB table
+* Determines what Lambda is allowed to do
