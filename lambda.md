@@ -129,6 +129,9 @@ When you invoke your lmabda for the first time, **the service need to prepare th
 
    > **Remember:** You need to initialize database connecxion outside the handler.
 
+A **cold start** occurs when a **new execution environment is required to run a Lambda function**. When the Lambda service receives a request to run a function, the service first prepares an execution environment. During this step, the service downloads the code for the function, then creates the execution environment with the specified memory, runtime, and configuration. Once complete, Lambda runs any initialization code outside of the event handler before finally running the handler code. 
+
+In a **warm start**, the **Lambda service retains the environment instead of destroying it immediately**. This allows the function **to run again within the same execution environment**. This saves time by not needing to initialize the environment.  
 ## C.3 Asynchronousand/Synchronous invocation
 The are two ways lambda function can be invoke:
    * **Synchronous invocation**: Where the client send request to a lambda; the lambda does it job and returns a response to the client.
@@ -183,4 +186,32 @@ If the **Lambda function does not receive any invocations for a period of time, 
 Lambda sends a shutdown event to each extension, which tells the extension that the environment is about to be shut down.
 
 > When you write your function code, **do not assume that Lambda automatically reuses the execution environment for subsequent function invocations**. Other factors may require Lambda to create a new execution environment, which can lead to unexpected results. Always test to optimize the functions and adjust the settings to meet your needs.
+>
+> [Lambda execution environment](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html)
+>
+### C.7 Best practice: Minimize cold start times
+When you invoke a Lambda function, **the invocation is routed to an execution environment to process the request**. 
+* If the environment is not already initialized, **the start-up time of the environment adds to latency**. 
+* If a function has not been used for some time, if more concurrent invocations are required, or if you update a function, new environments are created.  
+
+Creation of these environments can introduce latency for the invocations that are routed to a new environment. This latency is implied when using the term **cold start**. For most applications, this additional latency is not a problem. However, for some synchronous models, this latency can inhibit optimal performance. 
+> **It is critical to understand latency requirements and try to optimize your function for peak performance.** 
+
+After optimizing your function, **another way to minimize cold starts is to use provisioned concurrency**. Provisioned concurrency is a Lambda feature that prepares concurrent execution environments before invocations.
+
+## D. AWS Lambda Function Permissions
+With Lambda functions, there are two sides that define the necessary scope of permissions – 
+* **Permission to invoke the function**, who are controlled using an **IAM resource-based policy**
+* **Permission of the Lambda function itself to act upon other services**. An **IAM execution role** defines the permissions that control what the function is allowed to do when interacting with other AWS services. 
+
+![iam](https://github.com/tkamag/SageMaker/assets/14333637/3487ea06-0e5b-429c-b6c0-d76f7681a198)
+
+> **Resource policies** grant permissions to invoke the function, whereas the **execution role** strictly controls what the function can to do within the other AWS service.
+>
+> **Remember to use the principle of least privilege when creating IAM policies and roles**. Always start with the most restrictive set of permissions and only grant further permissions as required for the function to run. Using the principle of least privilege ensures security in depth and eliminates the need to remember to 'go back and fix it' once the function is in production.
+> ## D.1 Example: Execution role definitions
+> 
+![iam](https://github.com/tkamag/aws-ressources/assets/14333637/5546e5c1-e79c-4bcc-b353-07853cee487b)
+
+![trust](https://github.com/tkamag/aws-ressources/assets/14333637/198a0792-807a-4a06-96bc-26fa5e40bdd7)
 
