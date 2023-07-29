@@ -129,16 +129,56 @@ When you invoke your lmabda for the first time, **the service need to prepare th
 
    > **Remember:** You need to initialize database connecxion outside the handler.
 
-   ## C.3 Asynchronousand/Synchronous invocation
-   The are two ways lambda function can be invoke:
+## C.3 Asynchronousand/Synchronous invocation
+The are two ways lambda function can be invoke:
    * **Synchronous invocation**: Where the client send request to a lambda; the lambda does it job and returns a response to the client.
 
    * **Asynchronous invocation**: Where client doesn't sent a request to the lamnda, it places it on a queue that is internal to the lambda. After the client successfully places the event on the queue, it considers its job done, **the client is not waiting any response from the lambda**. When the lambda is not busy, it takes the request even from the sueue and processes it.
 
-    When we click on a **test buttom** in the console, ware invoking **the functions synchronous ly**, we need to xait for lambda to return a response.
+When we click on a **test buttom** in the console, ware invoking **the functions synchronous ly**, we need to xait for lambda to return a response.
 
-    ## C.4 Dead Letter Queue
-    A **Dead Leter queue** is queue to which messages in our ceses events are sent if they cannot be successfull process by our lambda.
-    To create a  dead letter queue, we'll use ``AWS SQS``  and add it to our lambda function(go to configuration + Asynchronousand invocation+ Attach+ Dead Letter Queue)
+## C.4 Dead Letter Queue
+A **Dead Leter queue** is queue to which messages in our ceses events are sent if they cannot be successfull process by our lambda.
+To create a  dead letter queue, we'll use ``AWS SQS``  and add it to our lambda function(go to configuration + Asynchronousand invocation+ Attach+ Dead Letter Queue)
 
-    ## C.5 Concurrency
+## C.5 Concurrency
+
+## C.6 Execution environment lifecycle
+
+![lambda](https://github.com/tkamag/aws-ressources/assets/14333637/00a15151-a98e-4895-a9a1-67a182ebb909)
+
+When you create your Lambda function, you specify configuration information, such as the amount of available memory and the maximum invocation time allowed for your function. Lambda uses this information to set up the execution environment.
+
+The function's runtime and each external extension are processes that run within the execution environment. Permissions, resources, credentials, and environment variables are shared between the function and the extensions.
+### C.6.1 Init phase
+In this phase, 
+* Lambda creates or unfreezes an execution environment with the configured resources, 
+* Downloads the code for the function and all layers, 
+* Initializes any extensions, 
+* Initializes the runtime, and then 
+* Runs the **function’s initialization code (the code outside the main handler)**. 
+
+> The Init phase happens **either during the first invocation**, or **before function invocations** if you have enabled provisioned concurrency.
+
+The Init phase is split into three sub-phases: 
+
+1. **Extension init** - starts all extensions
+2. **Runtime init** - bootstraps the runtime
+3. **Function init** - runs the function's static code
+
+> These sub-phases **ensure that all extensions and the runtime complete their setup tasks before the function code runs**.
+>
+> ### C.6.2 Invoke phase
+In this phase, 
+* **Lambda invokes the function handler**. 
+
+After the function runs to completion, Lambda prepares to handle another function invocation. 
+
+### C.6.3 Shutdown phase
+If the **Lambda function does not receive any invocations for a period of time, this phase initiates**. In the Shutdown phase,
+* Lambda shuts down the runtime, 
+* Alerts the extensions to let them stop cleanly, and then 
+* Removes the environment. 
+
+Lambda sends a shutdown event to each extension, which tells the extension that the environment is about to be shut down.
+
