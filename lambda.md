@@ -182,3 +182,5 @@ If the **Lambda function does not receive any invocations for a period of time, 
 
 Lambda sends a shutdown event to each extension, which tells the extension that the environment is about to be shut down.
 
+> When you write your function code, **do not assume that Lambda automatically reuses the execution environment for subsequent function invocations**. Other factors may require Lambda to create a new execution environment, which can lead to unexpected results. Always test to optimize the functions and adjust the settings to meet your needs.
+
