@@ -260,7 +260,6 @@ A **resource policy determines who is allowed in (who can initiate your function
 * Can grant access to the Lambda function across AWS accounts
 * Determines who has access to invoke the function
 
-An **execution role must be created or selected when creating your function**, and **it controls what Lambda is allowed to do (such as writing to a DynamoDB table)**. It includes a **trust policy** with **AssumeRole**. 
-* Must be chosen or created when you create a Lambda function
+An **execution role must be created or selected when creating your function**, and **it controls what Lambda is allowed to do (such as writing to a DynamoDB table)**. It includes a **trust policy** with **AssumeRole**. * Must be chosen or created when you create a Lambda function
 * Can give Lambda permission to write data to a DynamoDB table
 * Determines what Lambda is allowed to do
