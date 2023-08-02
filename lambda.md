@@ -148,7 +148,20 @@ A **Dead Leter queue** is queue to which messages in our ceses events are sent i
 To create a  dead letter queue, we'll use ``AWS SQS``  and add it to our lambda function(go to configuration + Asynchronousand invocation+ Attach+ Dead Letter Queue)
 
 ## C.5 Concurrency
+Thinks that happens at the same time.
+> **Concurrency is the number of requests being served at a given moment**. It's something you need to think about when designing an application with Lambda.
 
+> **Concurrency is a major scalling consideration, and can cause applications to fail dur to throttling**. Defaults is 1000 units of concurrency per AWS account.
+
+The are three type of   concurrencies:
+* **Unreserved** : The deafult one (common concurrency pool)
+* **Reserved**   : Reserved a certain number of concurent units for your Lambda. This function will always have those X number of units concurrency(Dedicated concurrency pool).
+* **Provisioned**: Here you **have a dedicated ans always on concurrency pool that is specifeid at the function and the version level**.
+> **It makes it so that you do,n't have a cold start problem**
+
+**Throttling** aka **RateExceeded**
+* Throttling is when Lambda rejects a request
+* Occurs when in flight invocations exceeds available concurrency.
 ## C.6 Execution environment lifecycle
 
 ![lambda](https://github.com/tkamag/aws-ressources/assets/14333637/00a15151-a98e-4895-a9a1-67a182ebb909)
