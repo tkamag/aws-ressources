@@ -267,4 +267,4 @@ An **execution role must be created or selected when creating your function**, a
 * Can give Lambda permission to write data to a DynamoDB table
 * Determines what Lambda is allowed to do
 
-**Even source mapping** : Fancing terms who said that, instead of invokink my function, **lambda is going to read event from a queue (SQS or SNS or DynamoDB Streams)  and invoke your function as a result of seeing messages in that queue**.
+**Even source mapping** : Fancing terms who said that, instead of invokink my function, **lambda is going to read event from a queue (SQS or SNS or DynamoDB Streams)  and invoke your function as a result of seeing messages in that queue**
