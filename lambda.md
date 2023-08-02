@@ -134,11 +134,14 @@ A **cold start** occurs when a **new execution environment is required to run a 
 In a **warm start**, the **Lambda service retains the environment instead of destroying it immediately**. This allows the function **to run again within the same execution environment**. This saves time by not needing to initialize the environment.  
 ## C.3 Asynchronousand/Synchronous invocation
 The are two ways lambda function can be invoke:
-   * **Synchronous invocation**: Where the client send request to a lambda; the lambda does it job and returns a response to the client.
+   * **Synchronous invocation**: Where the client send request to a lambda; the lambda does it job (executes the codes we've uploaded, computation, connecxion to a database and so on) and returns a response to the client. So as a **caller** you know whether or not that function was successful.
 
    * **Asynchronous invocation**: Where client doesn't sent a request to the lamnda, it places it on a queue that is internal to the lambda. After the client successfully places the event on the queue, it considers its job done, **the client is not waiting any response from the lambda**. When the lambda is not busy, it takes the request even from the sueue and processes it.
+   * > **Here we follow the process of drop the message and move on.** We don't care wherher or not it actually succeeded.
 
-When we click on a **test buttom** in the console, ware invoking **the functions synchronous ly**, we need to xait for lambda to return a response.
+When we click on a **test buttom** in the console, ware invoking **the functions synchronously**, we need to xait for lambda to return a response.
+> **You have the choice of using Asynchronous or synchronous, this is control via a parameter that you pass in when you're using the SDK**
+> The lambda function is not bound to the invokation type and you can switch between these two at any time**
 
 ## C.4 Dead Letter Queue
 A **Dead Leter queue** is queue to which messages in our ceses events are sent if they cannot be successfull process by our lambda.
@@ -263,3 +266,5 @@ A **resource policy determines who is allowed in (who can initiate your function
 An **execution role must be created or selected when creating your function**, and **it controls what Lambda is allowed to do (such as writing to a DynamoDB table)**. It includes a **trust policy** with **AssumeRole**. * Must be chosen or created when you create a Lambda function
 * Can give Lambda permission to write data to a DynamoDB table
 * Determines what Lambda is allowed to do
+
+**Even source mapping** : Fancing terms who said that, instead of invokink my function, **lambda is going to read event from a queue (SQS or SNS or DynamoDB Streams)  and invoke your function as a result of seeing messages in that queue**.
