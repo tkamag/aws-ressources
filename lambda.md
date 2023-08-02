@@ -154,15 +154,32 @@ Thinks that happens at the same time.
 > **Concurrency is a major scalling consideration, and can cause applications to fail dur to throttling**. Defaults is 1000 units of concurrency per AWS account.
 
 The are three type of   concurrencies:
-* **Unreserved** : The deafult one (common concurrency pool)
+* **Unreserved** : The deafult one (common concurrency pool).
+  * If one function consumes all consurrency, **the others will get throttled**.
+  * Limit can be raised via AWS Support Ticket.
 * **Reserved**   : Reserved a certain number of concurent units for your Lambda. This function will always have those X number of units concurrency(Dedicated concurrency pool).
+  * A portion is always reserved for a specific function, even if there are no invocations.
+  * You can use reserved concurrency to minimize or maximize your processing rate.
 * **Provisioned**: Here you **have a dedicated ans always on concurrency pool that is specifeid at the function and the version level**.
 > **It makes it so that you do,n't have a cold start problem**
+  * Supports autoscalling policies based on usage.
+  * If i said that for my function, i want to specify provision concurrency on it, and i can said that i always want to have 10 units of provision concurrency, **that means that Lambda will reserve and allocate ressources for 10 containers that are going to be able  to serve traffic without having to cold start**.
+  * It's very, very expensive.
+  * **Provision concurrency** substract from **reserved concurrency** and will rnever exceed the number of **reserved concurrency** that you've specified.
 
 **Throttling** aka **RateExceeded**
 * Throttling is when Lambda rejects a request
 * Occurs when in flight invocations exceeds available concurrency.
-## C.6 Execution environment lifecycle
+
+
+
+**Pro Tips**
+* Setup an alarm on throttles for early indicators of issues.
+* Evaluate your concurrency needs and plan accordingly.
+* Have your clients use Exponentiel Backoff to avoid retry storms.
+* Raising your Memory Limit can help, **but be careful**.
+* Use a small amount of provisioned concurrency to mitigate cols strats for latency sensitive apps.
+* ## C.6 Execution environment lifecycle
 
 ![lambda](https://github.com/tkamag/aws-ressources/assets/14333637/00a15151-a98e-4895-a9a1-67a182ebb909)
 
