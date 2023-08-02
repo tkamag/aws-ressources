@@ -232,6 +232,17 @@ Creation of these environments can introduce latency for the invocations that ar
 
 After optimizing your function, **another way to minimize cold starts is to use provisioned concurrency**. Provisioned concurrency is a Lambda feature that prepares concurrent execution environments before invocations.
 
+### C.8 Versions
+Versions are snapshots of the code and settings of a function.
+* Code and settings get locked to a version on publish.
+* Version is absolutely optionnal.
+* New default default to **$LATEST** version.
+
+### C.9 Alias
+An alias is an **named pointer to a specific version**.
+* Useful for beta testing or pre-prod environments.
+* You can assing weights to different versions using a **Version/Alias**.
+* 
 ## D. AWS Lambda Function Permissions
 With Lambda functions, there are two sides that define the necessary scope of permissions – 
 * **Permission to invoke the function**, who are controlled using an **IAM resource-based policy**
