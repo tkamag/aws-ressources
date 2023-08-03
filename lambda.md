@@ -242,7 +242,27 @@ Versions are snapshots of the code and settings of a function.
 An alias is an **named pointer to a specific version**.
 * Useful for beta testing or pre-prod environments.
 * You can assing weights to different versions using a **Version/Alias**.
-* 
+* To create an **Alias**, you first create a **version** and map this version to the **alias** and the **alais** pointed to **only one version** at a time.
+* The top level function, the latest one is **$LATEST**
+
+### C.10 Environment Variables
+* Pairs of Strings with a key and value
+* Allow you to adjust function behavior without touching your code.
+* Examples:
+  * STAGE
+  * CLIENT_ENDPOINT_URL
+  * DATABASE_CONNNECTION_STRING
+
+````python
+import os
+
+db_connection_string = os.environ['DATABASE_CONNNECTION_STRING']`
+region = os.environ['AWS_REGION']
+
+````
+
+
+
 ## D. AWS Lambda Function Permissions
 With Lambda functions, there are two sides that define the necessary scope of permissions – 
 * **Permission to invoke the function**, who are controlled using an **IAM resource-based policy**
@@ -309,3 +329,18 @@ An **execution role must be created or selected when creating your function**, a
 * Determines what Lambda is allowed to do
 
 **Even source mapping** : Fancing terms who said that, instead of invokink my function, **lambda is going to read event from a queue (SQS or SNS or DynamoDB Streams)  and invoke your function as a result of seeing messages in that queue**
+
+## G. Metrics to Monitor
+* **Invocations**
+* **Errors count and success rate**
+* **Duration**
+* **Throtttle**
+* **ConcurrentExecutions**
+* **UnreserveredConcurrentExecutions**
+* **IteratorAge**: For **DynamoDB stream** or **Kinesis** and it's the difference in time between when a message was put into the stream and when the message is pull of the stream.
+  * When the time is large, then Lambda is not processing enough
+  * When it's near zero, it's a good thing.
+
+**Pro Tips**
+* Metrics don't help if you're not lookng at them.
+* SetUp alarm on your metrics.
