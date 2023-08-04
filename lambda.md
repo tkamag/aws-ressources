@@ -352,3 +352,12 @@ An **execution role must be created or selected when creating your function**, a
 * Activating it adds a Lambda Extension to your function. Logs get emitted on every invocation.
 
 ## I. Monitoring - X Ray tracing
+* Application level debugging feature.
+* Generate trace information on your invocations.
+* Visualization aid for understanding how much time is spent where.
+* You can add custom segements to your code for function traces.
+  
+  **Pro Tips**
+  * It's expensive
+  * More useful for ad-hoc debugging.
+  * Consider using sampling.
