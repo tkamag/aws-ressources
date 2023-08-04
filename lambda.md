@@ -144,8 +144,15 @@ When we click on a **test buttom** in the console, ware invoking **the functions
 > The lambda function is not bound to the invokation type and you can switch between these two at any time**
 
 ## C.4 Dead Letter Queue
-A **Dead Leter queue** is queue to which messages in our ceses events are sent if they cannot be successfull process by our lambda.
+A **Dead Leter queue** is queue to which messages in our ceses events are sent if they cannot be successfull process by our lambda. 
+> **It's a destination to temporarily hold failed invocation message content.** After a number of attempts, messages can be sent to the DLQ for you to act on.
+
 To create a  dead letter queue, we'll use ``AWS SQS``  and add it to our lambda function(go to configuration + Asynchronousand invocation+ Attach+ Dead Letter Queue)
+
+**Pro Tips**
+* Always use a DLQ for production applications.
+* Alarms on DLQ size > 0
+* Be proactive - have a process for re-driving messages.
 
 ## C.5 Concurrency
 Thinks that happens at the same time.
