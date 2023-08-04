@@ -344,3 +344,11 @@ An **execution role must be created or selected when creating your function**, a
 **Pro Tips**
 * Metrics don't help if you're not lookng at them.
 * SetUp alarm on your metrics.
+
+## H. Lambda Insights
+* Performance monitoring tool for lambda.
+* Collects metrics, aggregates and summarizes system level metrics (CPU, Memory, Network Usage)
+* Embedded dashboard
+* Activating it adds a Lambda Extension to your function. Logs get emitted on every invocation.
+
+## I. Monitoring - X Ray tracing
