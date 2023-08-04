@@ -178,8 +178,6 @@ The are three type of   concurrencies:
 * Throttling is when Lambda rejects a request
 * Occurs when in flight invocations exceeds available concurrency.
 
-
-
 **Pro Tips**
 * Setup an alarm on throttles for early indicators of issues.
 * Evaluate your concurrency needs and plan accordingly.
@@ -368,3 +366,19 @@ An **execution role must be created or selected when creating your function**, a
   * It's expensive
   * More useful for ad-hoc debugging.
   * Consider using sampling.
+
+## J. Lambda layers 
+* Layers allows you to easily add external librairies, data, config files to your function
+* Zip the package contents and upload via console.
+
+## K. Lambda Filesystem
+* You can mount an EFS volume to make its contents accesible to your function.
+
+## L. Lambda and Docker
+* 10GB size limit
+* Base images are provided.
+
+## M. Continuous Deployment
+* Integrate with Github/CodeCommit and CodeBuild for an automatic build system.
+* Leverage CodePipeline to archestrate the changes and update your function.
+* 
