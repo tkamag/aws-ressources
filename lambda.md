@@ -304,7 +304,7 @@ action against a ``DynamoDB`` table called **test** in the ``us-east-2`` region.
 A ``Trust policy`` defines **what actions your role can assume**. the ``Trust policy`` allows Lambda to use the role's permissions by giving the service principal 
 
 ````JSON
-lambda.amazonaws.com
+"lambda.amazonaws.com"
 ````
 **permission to call the AWS Security Token Assume role action**.
 
