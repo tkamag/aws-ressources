@@ -280,7 +280,12 @@ With Lambda functions, there are two sides that define the necessary scope of pe
 >
 > **Remember to use the principle of least privilege when creating IAM policies and roles**. Always start with the most restrictive set of permissions and only grant further permissions as required for the function to run. Using the principle of least privilege ensures security in depth and eliminates the need to remember to 'go back and fix it' once the function is in production.
 ### D.1 Execution role definitions
-> 
+#### D.1.1 IAM Policy
+The ``IAM policy`` allows the function to perform the action 
+````python
+"Action" : "*dynamodb.PutItem"
+````
+action 
 ![iam](https://github.com/tkamag/aws-ressources/assets/14333637/5546e5c1-e79c-4bcc-b353-07853cee487b)
 
 ![trust](https://github.com/tkamag/aws-ressources/assets/14333637/198a0792-807a-4a06-96bc-26fa5e40bdd7)
