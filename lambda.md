@@ -117,6 +117,7 @@ When you invoke your lmabda for the first time, **the service need to prepare th
    
    > This initialization period is frequently referred to as a **cold start**.
 
+
    > If another event comes in right after the first one was processed, **the initialization period is skipped; because we have a lambda that's ready to be invoked**. This is called a **warm start**
 
    > If our lambda doesn't receive any events from some periods of time,  **the lambda service decodes to kill the lambda instance**  
@@ -127,7 +128,7 @@ When you invoke your lmabda for the first time, **the service need to prepare th
    
    > **When a function is invoke at the first time i.e at the cold start, all the code outside the handler is run**. At **warm start** the code outside the handler are already been imported.
 
-   > **Remember:** You need to initialize database connecxion outside the handler.
+  **Remember:** You need to initialize database connecxion outside the handler.
 
 A **cold start** occurs when a **new execution environment is required to run a Lambda function**. When the Lambda service receives a request to run a function, the service first prepares an execution environment. During this step, the service downloads the code for the function, then creates the execution environment with the specified memory, runtime, and configuration. Once complete, Lambda runs any initialization code outside of the event handler before finally running the handler code. 
 
