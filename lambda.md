@@ -426,4 +426,3 @@ An **execution role must be created or selected when creating your function**, a
 ## M. Continuous Deployment
 * Integrate with Github/CodeCommit and CodeBuild for an automatic build system.
 * Leverage CodePipeline to archestrate the changes and update your function.
-* 
