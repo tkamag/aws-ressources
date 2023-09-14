@@ -304,11 +304,31 @@ action against a ``DynamoDB`` table called **test** in the ``us-east-2`` region.
 A ``Trust policy`` defines **what actions your role can assume**. the ``Trust policy`` allows Lambda to use the role's permissions by giving the service principal 
 
 ````python
-"lambda.amazonaws.com." 
+lambda.amazonaws.com
 ````
 **permission to call the AWS Security Token Assume role action**.
 
+This example illustrate that the principal 
+````python
+"service" : "lambda.amazonaws.com"
+````
+can take the 
 
+````python
+ "Action" : "sts.AssumeRole"
+````
+allowing Lambda to assume the role and invoke the function on your behalf.
+
+````python
+          {
+            "$id": "Allow PutItem in table/test",
+            "Effect" : "Allow",
+            "Action" : "sts.AssumeRole",
+            "Principal" : {
+                  "service" : "lambda.amazonaws.com"
+                }
+          }
+ ````
 
 ![trust](https://github.com/tkamag/aws-ressources/assets/14333637/198a0792-807a-4a06-96bc-26fa5e40bdd7)
 
