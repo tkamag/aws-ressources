@@ -347,10 +347,10 @@ The following is a basic resource policy example.
 | **Ressiurce-based policy**  | **Execution role**  |
 |---|---|
 | Lambda resource-based (function) policy  | IAM execution role  |
-| - Associated with a "push" event source such as Amazon API Gateway  | * Role selected or created when you create a Lambda function  |
-| - Created when you add a trigger to a Lambda function | * IAM policy includes actions you can take with the resource  |
-| * Allows the event source to take the lambda:InvokeFunction action  |  * Trust policy that allows Lambda to AssumeRole |
-|   | * Creator must have permission for iam:PassRole  |
+| - Associated with a "push" event source such as Amazon API Gateway  | - Role selected or created when you create a Lambda function  |
+| - Created when you add a trigger to a Lambda function | - IAM policy includes actions you can take with the resource  |
+| - Allows the event source to take the lambda:InvokeFunction action  |  - Trust policy that allows Lambda to AssumeRole |
+|   | - Creator must have permission for iam:PassRole  |
 
 ## E. Ease of management
 
