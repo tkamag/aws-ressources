@@ -329,9 +329,6 @@ allowing Lambda to assume the role and invoke the function on your behalf.
                 }
           }
  ````
-
-![trust](https://github.com/tkamag/aws-ressources/assets/14333637/198a0792-807a-4a06-96bc-26fa5e40bdd7)
-
 ### D.2 Resource-based policy
 A **resource policy** (also called a function policy or IAM ressource policy) **tells the Lambda service which principals have permission to invoke the Lambda function**. 
 > An **AWS principal may be a user, role, another AWS service, or another AWS account**.
