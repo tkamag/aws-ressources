@@ -293,14 +293,22 @@ action against a ``DynamoDB`` table called **test** in the ``us-east-2`` region.
           {
             "$id": "Allow PutItem in table/test",
             "Effect" : "Allow",
-            "Action" : "dynamodb/PutItem",
+            "Action" : "dynamodb:PutItem",
             "Resource" : "arn:aws:dynamodb:us-east-2:###:table/test"
           }
       ]
  ````
 
- 
-![iam](https://github.com/tkamag/aws-ressources/assets/14333637/5546e5c1-e79c-4bcc-b353-07853cee487b)
+#### D.1.1 Trust Policy
+
+A ``Trust policy`` defines **what actions your role can assume**. the ``Trust policy`` allows Lambda to use the role's permissions by giving the service principal 
+
+````python
+"lambda.amazonaws.com." 
+````
+**permission to call the AWS Security Token Assume role action**.
+
+
 
 ![trust](https://github.com/tkamag/aws-ressources/assets/14333637/198a0792-807a-4a06-96bc-26fa5e40bdd7)
 
