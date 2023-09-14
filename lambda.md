@@ -282,12 +282,12 @@ With Lambda functions, there are two sides that define the necessary scope of pe
 ### D.1 Execution role definitions
 #### D.1.1 IAM Policy
 The ``IAM policy`` allows the function to perform the action 
-````python
+````JSON
 "Action" : "*dynamodb:PutItem"
 ````
 action against a ``DynamoDB`` table called **test** in the ``us-east-2`` region.
 
-````python
+````JSON
 "Version" : "2022-10-17",
       "Statement" : [
           {
@@ -303,23 +303,23 @@ action against a ``DynamoDB`` table called **test** in the ``us-east-2`` region.
 
 A ``Trust policy`` defines **what actions your role can assume**. the ``Trust policy`` allows Lambda to use the role's permissions by giving the service principal 
 
-````python
+````JSON
 lambda.amazonaws.com
 ````
 **permission to call the AWS Security Token Assume role action**.
 
 This example illustrate that the principal 
-````python
+````JSON
 "service" : "lambda.amazonaws.com"
 ````
 can take the 
 
-````python
+````JSON
  "Action" : "sts.AssumeRole"
 ````
 allowing Lambda to assume the role and invoke the function on your behalf.
 
-````python
+````JSON
           {
             "$id": "Allow PutItem in table/test",
             "Effect" : "Allow",
