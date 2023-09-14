@@ -283,9 +283,23 @@ With Lambda functions, there are two sides that define the necessary scope of pe
 #### D.1.1 IAM Policy
 The ``IAM policy`` allows the function to perform the action 
 ````python
-"Action" : "*dynamodb.PutItem"
+"Action" : "*dynamodb:PutItem"
 ````
-action 
+action against a ``DynamoDB`` table called **test** in the ``us-east-2`` region.
+
+````python
+"Version" : "2022-10-17",
+      "Statement" : [
+          {
+            "$id": "Allow PutItem in table/test",
+            "Effect" : "Allow",
+            "Action" : "dynamodb/PutItem",
+            "Resource" : "arn:aws:dynamodb:us-east-2:###:table/test"
+          }
+      ]
+ ````
+
+ 
 ![iam](https://github.com/tkamag/aws-ressources/assets/14333637/5546e5c1-e79c-4bcc-b353-07853cee487b)
 
 ![trust](https://github.com/tkamag/aws-ressources/assets/14333637/198a0792-807a-4a06-96bc-26fa5e40bdd7)
